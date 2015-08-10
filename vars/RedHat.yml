@@ -1,0 +1,11 @@
+---
+nodejs_executable: /usr/bin/node
+
+nodejs_rpm_packages:
+  - "{{ nodejs_package_name | mandatory }}-{{ nodejs_version | mandatory }}"
+  - npm
+  - git
+
+nodejs_app_user_shell: /sbin/nologin
+
+nodejs_app_home_dir: /var/empty/nodejs

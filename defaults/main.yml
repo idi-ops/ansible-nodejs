@@ -1,0 +1,31 @@
+---
+nodejs_package_name: nodejs
+
+nodejs_version: 0.10.36
+
+nodejs_app_groupname: nodejs
+
+nodejs_app_username: nodejs
+
+nodejs_app_rpm_packages: []
+
+nodejs_app_install_dir: "/opt/{{ nodejs_app_name }}"
+
+nodejs_app_commands:
+  - "npm install"
+
+nodejs_app_env_vars: []
+    
+git_clone: true
+
+nodejs_app_host_address: 127.0.0.1
+
+# Mandatory
+nodejs_app_name: ''
+nodejs_app_git_repo: ''
+nodejs_app_git_branch: ''
+nodejs_app_start_script: ''
+nodejs_app_tcp_port: ''
+nodejs_app_test_http_endpoint: ''
+nodejs_app_test_http_status_code: ''
+nodejs_app_test_string: ''

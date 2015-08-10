@@ -1,0 +1,40 @@
+---
+- name: Ensure Supervisord will start the application as a background process in a Docker container
+  lineinfile:
+    dest: /etc/supervisord.conf
+    regexp: ^nodaemon=true
+    state: absent
+  when: is_docker
+
+- name: Start Supervisord and application in a Docker container
+  shell: supervisord -c /etc/supervisord.conf
+  when: is_docker
+
+- name: Enable and/or restart systemd unit
+  service:
+    name: "{{ nodejs_app_name }}"
+    enabled: yes
+    state: restarted
+  when: not is_docker
+
+- name: Wait for the application to finish initializing before proceeding
+  wait_for:
+    host: "{{ nodejs_app_host_address }}"
+    port: "{{ nodejs_app_tcp_port }}"
+    state: started
+    delay: 10
+    timeout: 300
+  
+- name: Test the application endpoint and check the result for the presence of a requested string
+  uri:
+    url: "http://{{ nodejs_app_host_address }}:{{ nodejs_app_tcp_port }}{{ nodejs_app_test_http_endpoint }}"
+    status_code: "{{ nodejs_app_test_http_status_code }}"
+    follow_redirects: all
+    return_content: yes
+    timeout: 60
+  register: webpage
+
+- name: Fail if requested string is not found
+  fail:
+    msg: Application is not configured properly
+  when: "'{{ nodejs_app_test_string }}' not in webpage.content"

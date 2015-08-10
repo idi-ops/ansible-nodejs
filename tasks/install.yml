@@ -1,0 +1,35 @@
+---
+# Workaround for https://github.com/ansible/ansible-modules-extras/issues/471
+- name: Install Yum Utilities
+  shell: dnf -y install yum-utils
+  args:
+    creates: /usr/bin/repoquery
+  when: is_fedora
+
+- name: Install Node.js related RPM packages on Fedora
+  dnf:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ nodejs_rpm_packages }}"
+  when: is_fedora
+
+- name: Install application related RPM packages on Fedora
+  dnf:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ nodejs_app_rpm_packages }}"
+  when: (is_fedora) and (nodejs_app_rpm_packages)
+  
+- name: Install Node.js related RPM packages on CentOS
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ nodejs_rpm_packages }}"
+  when: is_centos
+
+- name: Install application related RPM packages on CentOS
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ nodejs_app_rpm_packages }}"
+  when: (is_centos) and (nodejs_app_rpm_packages)

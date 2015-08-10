@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  user: root
+
+  vars:
+    nodejs_app_name: preferences-server
+    nodejs_app_git_repo: https://github.com/gpii/universal.git
+    nodejs_app_git_branch: master
+    nodejs_app_rpm_packages:
+      - nodejs-grunt-cli
+    nodejs_app_commands:
+      - npm install
+      - grunt dedupe-infusion
+    nodejs_app_start_script: gpii.js
+    nodejs_app_env_vars:
+      - NODE_ENV=development.all.local
+    nodejs_app_host_address: 127.0.0.1
+    nodejs_app_tcp_port: 8081
+    nodejs_app_test_http_endpoint: /preferences/carla
+    nodejs_app_test_http_status_code: 200
+    nodejs_app_test_string: registry.gpii.net
+
+  roles:
+    - facts
+    - .
