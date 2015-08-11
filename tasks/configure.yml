@@ -18,7 +18,7 @@
     dest: "{{ nodejs_app_install_dir | mandatory }}"
     version: "{{ nodejs_app_git_branch | mandatory }}"
     depth: 1
-  when: git_clone
+  when: nodejs_app_git_clone
   
 - name: Run application related commands
   command: "{{ item }}"

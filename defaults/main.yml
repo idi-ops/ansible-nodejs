@@ -16,7 +16,7 @@ nodejs_app_commands:
 
 nodejs_app_env_vars: []
     
-git_clone: true
+nodejs_app_git_clone: true
 
 nodejs_app_host_address: 127.0.0.1
 
