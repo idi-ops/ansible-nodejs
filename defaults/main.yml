@@ -1,31 +1,91 @@
 ---
+# Variables labelled as MANDATORY will cause the role to fail if they are not
+# set. Variables with values provided can be used as-is unless there is a reason
+# to override them.
+
+# The nodejs_package_name and nodejs_version variables are used together to
+# determine which package gets installed. Both should reflect the packages
+# available in the Fedora and EPEL repositories.
+
+# MANDATORY
 nodejs_package_name: nodejs
 
+# MANDATORY
 nodejs_version: 0.10.36
 
+# MANDATORY
+# A hyphenated string representing the application's name. It is used to name
+# Git working directory and label services managed by Systemd or Supervisor.
+# Example: preferences-server
+nodejs_app_name: ''
+
+# MANDATORY
+# A Git repository's URL
+# Example: https://github.com/gpii/universal.git
+nodejs_app_git_repo: ''
+
+# MANDATORY
+# A Git branch
+# Example: master
+nodejs_app_git_branch: ''
+
+# MANDATORY
+# The application script passed as an argument to the Node.js binary
+# Example: server.js
+nodejs_app_start_script: ''
+
+# A TCP port used by the application
+# Example: 8080
+nodejs_app_tcp_port: ''
+
+# An HTTP endpoint that can be used to test if the application is working
+# Example: /status
+nodejs_app_test_http_endpoint: ''
+
+# An HTTP status code that should be expected when the HTTP endpoint aboved is
+# visited
+# Example: 200
+nodejs_app_test_http_status_code: ''
+
+# A string that can be searched for in the body of the response from the endpoint
+# Example: Hello World
+nodejs_app_test_string: ''
+
+# MANDATORY
+# An IP address or FQDN used to reach the application
+nodejs_app_host_address: 127.0.0.1
+
+# MANDATORY
+# The group name used by the application process
 nodejs_app_groupname: nodejs
 
+# MANDATORY
+# The user account name used by the application process
 nodejs_app_username: nodejs
 
+# A YAML list of RPM packages that the application requires
+# Example:
+# - git
+# - nodejs-grunt-cli
 nodejs_app_rpm_packages: []
 
+# MANDATORY
+# The absolute file system path where the Git working directory will be located
 nodejs_app_install_dir: "/opt/{{ nodejs_app_name }}"
 
+# A YAML list of commands that will be executed in order within the application's
+# Git working directory
 nodejs_app_commands:
   - "npm install"
 
+# A YAML list of environment variables required by the application
+# Example:
+# - NODE_ENV=development.all.local
 nodejs_app_env_vars: []
-    
+
+# A boolean stating whether the application's Git repository should be cloned or
+# not. An example scenario where you may want to set this to 'false' would be a
+# Vagrant project where the application's source code might already be present
+# on local storage.
 nodejs_app_git_clone: true
 
-nodejs_app_host_address: 127.0.0.1
-
-# Mandatory
-nodejs_app_name: ''
-nodejs_app_git_repo: ''
-nodejs_app_git_branch: ''
-nodejs_app_start_script: ''
-nodejs_app_tcp_port: ''
-nodejs_app_test_http_endpoint: ''
-nodejs_app_test_http_status_code: ''
-nodejs_app_test_string: ''
