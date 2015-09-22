@@ -18,13 +18,13 @@ The role uses the following [Ansible tags](http://docs.ansible.com/ansible/playb
 
 ## Role Variables
 
-Please refer to the [defaults/main.yml](https://github.com/avtar/ansible-nodejs/blob/master/defaults/main.yml) file for a list of variables along with additional documentation.
+Please refer to the [defaults/main.yml](https://github.com/idi-ops/ansible-nodejs/blob/master/defaults/main.yml) file for a list of variables along with additional documentation.
 
 ## Requirements
 
 The following roles are required:
 
-*  [facts](https://github.com/avtar/ansible-facts/)
+*  [facts](https://github.com/idi-ops/ansible-facts/)
 
 ## Example
 
