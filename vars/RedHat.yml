@@ -1,6 +1,8 @@
 ---
 nodejs_executable: /usr/bin/node
 
+nodejs_dev_executable: /usr/bin/nodemon
+
 nodejs_rpm_packages:
   - "{{ nodejs_package_name | mandatory }}-{{ nodejs_version | mandatory }}"
   - npm

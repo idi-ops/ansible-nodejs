@@ -33,3 +33,11 @@
     state: present
   with_items: "{{ nodejs_app_rpm_packages }}"
   when: (is_centos) and (nodejs_app_rpm_packages)
+
+- name: Install nodemon if a development environment is being used
+  npm:
+    name: nodemon
+    state: present
+    global: yes
+  when: nodejs_app_dev_env
+  
