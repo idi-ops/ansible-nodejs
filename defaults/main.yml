@@ -19,73 +19,77 @@ nodejs_version: 0.10.36
 # Example: preferences-server
 nodejs_app_name: ''
 
+# A boolean stating whether the application's Git repository should be cloned or
+# not. An example scenario where you may want to set this to 'false' would be a
+# Vagrant project used for development where the application's source code might
+# already be present on local storage.
+nodejs_app_git_clone: true
+
 # MANDATORY
-# A Git repository's URL
+# The absolute file system path where either the application directory or the
+# Git working directory will be located.
+nodejs_app_install_dir: "/opt/{{ nodejs_app_name }}"
+
+# A Git repository's URL. This is mandatory if 'nodejs_app_git_clone' is set to
+# 'true'.
 # Example: https://github.com/gpii/universal.git
 nodejs_app_git_repo: ''
 
-# MANDATORY
-# A Git branch
+# A Git branch. This can also be the full 40-character SHA-1 hash, the literal
+# string HEAD, or a tag name. This is mandatory if 'nodejs_app_git_clone' is set
+# to 'true'.
 # Example: master
 nodejs_app_git_branch: ''
 
-# MANDATORY
-# The application script passed as an argument to the Node.js binary
+# The application script passed as an argument to the Node.js binary. If this
+# isn't set then the application won't start.
 # Example: server.js
 nodejs_app_start_script: ''
 
-# A TCP port used by the application
+# A TCP port used by the application.
 # Example: 8080
 nodejs_app_tcp_port: ''
 
-# An HTTP endpoint that can be used to test if the application is working
+# An HTTP endpoint that can be used to test if the application is working.
 # Example: /status
 nodejs_app_test_http_endpoint: ''
 
 # An HTTP status code that should be expected when the HTTP endpoint aboved is
-# visited
+# visited.
 # Example: 200
 nodejs_app_test_http_status_code: ''
 
-# A string that can be searched for in the body of the response from the endpoint
+# A string that can be searched for in the body of the response from the endpoint.
 # Example: Hello World
 nodejs_app_test_string: ''
 
 # MANDATORY
-# An IP address or FQDN used to reach the application
+# An IP address or FQDN used to reach the application.
 nodejs_app_host_address: 127.0.0.1
 
 # MANDATORY
-# The group name used by the application process
+# The group name used by the application process.
 nodejs_app_groupname: nodejs
 
 # MANDATORY
-# The user account name used by the application process
+# The user account name used by the application process.
 nodejs_app_username: nodejs
 
-# A YAML list of RPM packages that the application requires
+# A YAML list of RPM packages that the application requires.
 # Example:
 # - git
 # - nodejs-grunt-cli
 nodejs_app_rpm_packages: []
 
 # MANDATORY
-# The absolute file system path where the Git working directory will be located
+# The absolute file system path where the Git working directory will be located.
 nodejs_app_install_dir: "/opt/{{ nodejs_app_name }}"
 
 # A YAML list of commands that will be executed in order within the application's
-# Git working directory
-nodejs_app_commands:
-  - "npm install"
+# Git working directory.
+nodejs_app_commands: []
 
-# A YAML list of environment variables required by the application
+# A YAML list of environment variables required by the application.
 # Example:
 # - NODE_ENV=development.all.local
 nodejs_app_env_vars: []
-
-# A boolean stating whether the application's Git repository should be cloned or
-# not. An example scenario where you may want to set this to 'false' would be a
-# Vagrant project where the application's source code might already be present
-# on local storage.
-nodejs_app_git_clone: true
-
