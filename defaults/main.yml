@@ -46,6 +46,11 @@ nodejs_app_git_branch: ''
 # Example: server.js
 nodejs_app_start_script: ''
 
+# Enabling this will manage the application using https://github.com/remy/nodemon
+# so that Node process is restarted when file system changes are detected. This
+# will only work if 'nodejs_app_start_script' is set.
+nodejs_app_dev_env: false
+
 # A TCP port used by the application.
 # Example: 8080
 nodejs_app_tcp_port: ''
@@ -70,10 +75,12 @@ nodejs_app_host_address: 127.0.0.1
 # MANDATORY
 # The group name used by the application process.
 nodejs_app_groupname: nodejs
+nodejs_app_dev_groupname: vagrant
 
 # MANDATORY
 # The user account name used by the application process.
 nodejs_app_username: nodejs
+nodejs_app_dev_username: vagrant
 
 # A YAML list of RPM packages that the application requires.
 # Example:
