@@ -42,7 +42,7 @@
     name: npm
     version: "{{ nodejs_npm_version }}"
     global: yes
-  when: nodejs_npm_version
+  when: nodejs_npm_version is defined
 
 - name: Install required npm packages
   npm:
