@@ -37,6 +37,13 @@
     - "{{ nodejs_app_rpm_packages }}"
   when: is_centos
 
+- name: Adjust npm version
+  npm:
+    name: npm
+    version: "{{ nodejs_npm_version }}"
+    global: yes
+  when: nodejs_npm_version
+
 - name: Install required npm packages
   npm:
     name: "{{ item }}"
