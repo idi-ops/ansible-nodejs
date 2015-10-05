@@ -51,6 +51,14 @@ nodejs_app_start_script: ''
 # will only work if 'nodejs_app_start_script' is set.
 nodejs_app_dev_env: false
 
+# A YAML list of file extensions that will be monitored for changes. If changes are
+# detected then the Node.js process will be restarted.
+nodejs_app_monitor_file_extensions:
+  - css
+  - html
+  - js
+  - json
+
 # A TCP port used by the application.
 # Example: 8080
 nodejs_app_tcp_port: ''
