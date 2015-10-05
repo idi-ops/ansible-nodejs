@@ -1,8 +1,10 @@
 # Node.js Ansible Role
 
-This role assists with deploying a Node.js application on Fedora 22, CentOS 7, or a Docker container. It currently performs the following tasks:
+This role assists with deploying a Node.js application on Fedora 22, CentOS 7, or a Docker container (based on CentOS/Fedora). 
 
-* Installs Node.js, NPM, and any other requested packages
+It currently performs the following tasks:
+
+* Installs Node.js (from a limited set of supported versions), npm, git, grunt-cli and any other additional npm/RPM package required by the application.
 * Creates a user account and group used by the application
 * Clones the application's Git repository
 * Runs ``npm install`` in the Git working directory or specific commands requested by the user
@@ -32,14 +34,13 @@ Here is an example playbook that uses this role:
 
 ```
 - hosts: localhost
-  user: root
+  become: yes
+  become_user: root
 
   vars:
     nodejs_app_name: preferences-server
     nodejs_app_git_repo: https://github.com/gpii/universal.git
     nodejs_app_git_branch: master
-    nodejs_app_rpm_packages:
-      - nodejs-grunt-cli
     nodejs_app_commands:
       - npm install
       - grunt dedupe-infusion
