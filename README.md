@@ -22,6 +22,8 @@ The role uses the following [Ansible tags](http://docs.ansible.com/ansible/playb
 
 Please refer to the [defaults/main.yml](https://github.com/idi-ops/ansible-nodejs/blob/master/defaults/main.yml) file for a list of variables along with additional documentation.
 
+It's important to note that developers are expected to keep listing their dependencies in package.json as usual. However, this role offers the variable nodejs_app_npm_packages which has similar functionality but should only be used when certain packages need to be installed globally, in special cases.
+
 ## Requirements
 
 The following roles are required:
