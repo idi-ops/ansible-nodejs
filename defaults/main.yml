@@ -3,15 +3,17 @@
 # set. Variables with values provided can be used as-is unless there is a reason
 # to override them.
 
-# The nodejs_package_name and nodejs_version variables are used together to
-# determine which package gets installed. Both should reflect the packages
-# available in the Fedora and EPEL repositories.
-
-# MANDATORY
-nodejs_package_name: nodejs
-
-# MANDATORY
+# Node.js version required by application (supported versions: 0.10.36*, 0.10.40, 4.1.1)
 nodejs_version: 0.10.36
+
+# If a specific npm version is needed, specify it here
+#nodejs_npm_version: 2.14.5
+
+# List of additional RPM packages required by application
+nodejs_app_rpm_packages: []
+
+# List of additional NPM packages required by application
+nodejs_app_npm_packages: []
 
 # MANDATORY
 # A hyphenated string representing the application's name. It is used to name
@@ -90,21 +92,15 @@ nodejs_app_dev_groupname: vagrant
 nodejs_app_username: nodejs
 nodejs_app_dev_username: vagrant
 
-# A YAML list of RPM packages that the application requires.
-# Example:
-# - git
-# - nodejs-grunt-cli
-nodejs_app_rpm_packages: []
-
 # MANDATORY
 # The absolute file system path where the Git working directory will be located.
 nodejs_app_install_dir: "/opt/{{ nodejs_app_name }}"
 
-# A YAML list of commands that will be executed in order within the application's
+# List of commands that will be executed in order within the application's
 # Git working directory.
 nodejs_app_commands: []
 
-# A YAML list of environment variables required by the application.
+# List of environment variables required by the application.
 # Example:
 # - NODE_ENV=development.all.local
 nodejs_app_env_vars: []

@@ -1,4 +1,5 @@
 ---
+
 # Workaround for https://github.com/ansible/ansible-modules-extras/issues/471
 - name: Install Yum Utilities
   shell: dnf -y install yum-utils
@@ -6,33 +7,50 @@
     creates: /usr/bin/repoquery
   when: is_fedora
 
-- name: Install Node.js related RPM packages on Fedora
+- name: Install Node.js on Fedora
   dnf:
-    name: "{{ item }}"
+    name: "{{ nodejs_fedora_rpms[nodejs_version] }}"
     state: present
-  with_items: "{{ nodejs_rpm_packages }}"
   when: is_fedora
 
-- name: Install application related RPM packages on Fedora
+- name: Install additional RPM packages on Fedora
   dnf:
     name: "{{ item }}"
-    state: present
-  with_items: "{{ nodejs_app_rpm_packages }}"
-  when: (is_fedora) and (nodejs_app_rpm_packages)
-  
-- name: Install Node.js related RPM packages on CentOS
+    state: latest
+  with_flattened:
+    - "{{ nodejs_rpm_packages }}"
+    - "{{ nodejs_app_rpm_packages }}"
+  when: is_fedora
+
+- name: Install Node.js on CentOS
   yum:
-    name: "{{ item }}"
+    name: "{{ nodejs_centos_rpms[nodejs_version] }}"
     state: present
-  with_items: "{{ nodejs_rpm_packages }}"
   when: is_centos
 
-- name: Install application related RPM packages on CentOS
+- name: Install additional RPM packages on CentOS
   yum:
     name: "{{ item }}"
-    state: present
-  with_items: "{{ nodejs_app_rpm_packages }}"
-  when: (is_centos) and (nodejs_app_rpm_packages)
+    state: latest
+  with_flattened:
+    - "{{ nodejs_rpm_packages }}"
+    - "{{ nodejs_app_rpm_packages }}"
+  when: is_centos
+
+- name: Adjust npm version
+  npm:
+    name: npm
+    version: "{{ nodejs_npm_version }}"
+    global: yes
+  when: nodejs_npm_version is defined
+
+- name: Install required npm packages
+  npm:
+    name: "{{ item }}"
+    global: yes
+  with_items:
+    - "{{ nodejs_npm_packages }}"
+    - "{{ nodejs_app_npm_packages }}"
 
 - name: Install nodemon if a development environment is being used
   npm:
@@ -40,4 +58,3 @@
     state: present
     global: yes
   when: nodejs_app_dev_env
-  
