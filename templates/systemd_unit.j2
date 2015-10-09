@@ -4,7 +4,7 @@ Description={{ nodejs_app_name }}
 [Service]
 WorkingDirectory={{ nodejs_app_install_dir }}
 {% if nodejs_app_dev_env %}
-ExecStart={{ nodejs_dev_executable }} {% if nodejs_app_monitor_file_extensions %} -e {{ nodejs_app_monitor_file_extensions|join(',') }} {% endif %} {{ nodejs_app_start_script }}
+ExecStart={{ nodejs_dev_executable }} -L {% if nodejs_app_monitor_file_extensions %} -e {{ nodejs_app_monitor_file_extensions|join(',') }} {% endif %} {{ nodejs_app_start_script }}
 {% else %}
 ExecStart={{ nodejs_executable }} {{ nodejs_app_start_script }}
 {% endif %}
