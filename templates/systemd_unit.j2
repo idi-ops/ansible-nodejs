@@ -5,10 +5,13 @@ Description={{ nodejs_app_name }}
 WorkingDirectory={{ nodejs_app_install_dir }}
 {% if nodejs_app_dev_env %}
 ExecStart={{ nodejs_dev_executable }} {% if nodejs_app_monitor_file_extensions %} -e {{ nodejs_app_monitor_file_extensions|join(',') }} {% endif %} {{ nodejs_app_start_script }}
+{% else %}
+ExecStart={{ nodejs_executable }} {{ nodejs_app_start_script }}
+{% endif %}
+{% if nodejs_app_dev_env or is_vagrant %}
 User={{ nodejs_app_dev_username }}
 Group={{ nodejs_app_dev_groupname }}
 {% else %}
-ExecStart={{ nodejs_executable }} {{ nodejs_app_start_script }}
 User={{ nodejs_app_username }}
 Group={{ nodejs_app_groupname }}
 {% endif %}
