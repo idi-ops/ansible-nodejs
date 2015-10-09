@@ -26,7 +26,7 @@
     chdir: "{{ nodejs_app_install_dir }}"
   with_items: "{{ nodejs_app_commands }}"
   become: yes
-  become_user: "{{ nodejs_app_dev_username if nodejs_app_dev_env else nodejs_app_username }}"
+  become_user: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
   when: nodejs_app_commands
 
 - name: Set up VirtualBox Shared Folders npm workaround
@@ -34,7 +34,7 @@
     src: npmrc
     dest: "/home/{{ nodejs_app_dev_username if nodejs_app_dev_env else nodejs_app_username }}/.npmrc"
     mode: 0644
-    owner: "{{ nodejs_app_dev_username if nodejs_app_dev_env else nodejs_app_username }}"
-    group: "{{ nodejs_app_dev_groupname if nodejs_app_dev_env else nodejs_app_groupname }}"
+    owner: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
+    group: "{{ nodejs_app_dev_groupname if is_vagrant else nodejs_app_groupname }}"
   when: nodejs_app_dev_env
 
