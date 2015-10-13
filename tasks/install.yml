@@ -31,7 +31,7 @@
 - name: Fail if nodejs- RPM packages are specified in nodejs_app_rpm_packages
   fail:
     msg: "Node.js packages should be installed through npm (see nodejs_app_npm_packages)"
-  when: "'nodejs-' in {{ nodejs_app_rpm_packages|join(' ') }}"
+  when: "'nodejs-' in '{{ nodejs_app_rpm_packages|join(' ') }}'"
 
 - name: Install additional RPM packages on CentOS
   yum:
