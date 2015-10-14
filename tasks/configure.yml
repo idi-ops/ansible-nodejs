@@ -11,7 +11,7 @@
     group: "{{ nodejs_app_groupname }}"
     shell: "{{ nodejs_app_user_shell }}"
     home: "{{ nodejs_app_home_dir }}"
-    
+
 - name: Clone application repository
   git:
     repo: "{{ nodejs_app_git_repo | mandatory }}"
@@ -19,15 +19,22 @@
     version: "{{ nodejs_app_git_branch | mandatory }}"
     depth: 1
   when: nodejs_app_git_clone
-  
-- name: Run application related commands
+
+- name: Run application related commands with become if not under Docker
   command: "{{ item }}"
   args:
     chdir: "{{ nodejs_app_install_dir }}"
   with_items: "{{ nodejs_app_commands }}"
   become: yes
   become_user: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
-  when: nodejs_app_commands
+  when: nodejs_app_commands and not is_docker
+
+- name: Run application related commands without become under Docker
+  command: "{{ item }}"
+  args:
+    chdir: "{{ nodejs_app_install_dir }}"
+  with_items: "{{ nodejs_app_commands }}"
+  when: nodejs_app_commands and is_docker
 
 - name: Set up VirtualBox Shared Folders npm workaround
   copy:
@@ -37,4 +44,3 @@
     owner: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
     group: "{{ nodejs_app_dev_groupname if is_vagrant else nodejs_app_groupname }}"
   when: nodejs_app_dev_env
-
