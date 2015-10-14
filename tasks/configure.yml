@@ -28,7 +28,7 @@
       recurse: true
   when: nodejs_app_git_clone
 
-- name: Run application related commands with become
+- name: Run application related commands as the application user
   command: "{{ item }}"
   args:
     chdir: "{{ nodejs_app_install_dir }}"
