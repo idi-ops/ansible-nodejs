@@ -18,11 +18,17 @@
     dest: "{{ nodejs_app_install_dir | mandatory }}"
     version: "{{ nodejs_app_git_branch | mandatory }}"
     depth: 1
-  become: yes
-  become_user: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
   when: nodejs_app_git_clone
 
-- name: Run application related commands with become if not under Docker
+- name: make sure the application repository is owned by the appropriate user
+  file:
+      path: {{ nodejs_app_install_dir }}
+      owner: {{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}
+      group: {{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}
+      recurse: true
+  when: nodejs_app_git_clone
+
+- name: Run application related commands with become
   command: "{{ item }}"
   args:
     chdir: "{{ nodejs_app_install_dir }}"
