@@ -22,9 +22,9 @@
 
 - name: make sure the application repository is owned by the appropriate user
   file:
-      path: {{ nodejs_app_install_dir }}
-      owner: {{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}
-      group: {{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}
+      path: "{{ nodejs_app_install_dir }}"
+      owner: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
+      group: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
       recurse: true
   when: nodejs_app_git_clone
 
