@@ -3,6 +3,7 @@ command={{ nodejs_executable }} {{ nodejs_app_start_script }}
 {% if nodejs_app_env_vars %}
 environment={% for arg in nodejs_app_env_vars %}{{ arg }}{% if not loop.last %},{% endif %}{% endfor %}
 {% endif %}
+
 user={{ nodejs_app_username }}
 directory={{ nodejs_app_install_dir }}
 autorestart=true
