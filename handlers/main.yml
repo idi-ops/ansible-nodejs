@@ -1,0 +1,6 @@
+- name: Enable and/or restart systemd unit
+  service:
+    name: "{{ nodejs_app_name }}"
+    enabled: yes
+    state: restarted
+  when: not is_docker
