@@ -1,7 +1,7 @@
 [program:{{ nodejs_app_name }}]
 
 {% if nodejs_app_dev_env %}
-command={{ nodejs_dev_executable }} {{ nodejs_app_start_script }}
+command={{ nodejs_dev_executable }} -L {{ nodejs_app_start_script }}
 {% else %}
 command={{ nodejs_executable }} {{ nodejs_app_start_script }}
 {% endif %}
