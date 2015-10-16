@@ -28,6 +28,11 @@
       recurse: true
   when: nodejs_app_git_clone
 
+- name: make sure the application directory exists
+  file:
+      path: "{{ nodejs_app_install_dir }}"
+      state: directory
+
 - name: Run application related commands as the application user
   command: "{{ item }}"
   args:
