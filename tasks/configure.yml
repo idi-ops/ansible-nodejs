@@ -11,7 +11,7 @@
     group: "{{ nodejs_app_groupname }}"
     shell: "{{ nodejs_app_user_shell }}"
     home: "{{ nodejs_app_home_dir }}"
-    
+
 - name: Clone application repository
   git:
     repo: "{{ nodejs_app_git_repo | mandatory }}"
@@ -19,8 +19,16 @@
     version: "{{ nodejs_app_git_branch | mandatory }}"
     depth: 1
   when: nodejs_app_git_clone
-  
-- name: Run application related commands
+
+- name: make sure the application install directory exists and is owned by the appropriate user
+  file:
+      path: "{{ nodejs_app_install_dir }}"
+      owner: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
+      group: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
+      recurse: true
+      state: directory
+
+- name: Run application related commands as the application user
   command: "{{ item }}"
   args:
     chdir: "{{ nodejs_app_install_dir }}"
@@ -36,5 +44,4 @@
     mode: 0644
     owner: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
     group: "{{ nodejs_app_dev_groupname if is_vagrant else nodejs_app_groupname }}"
-  when: nodejs_app_dev_env
-
+  when: nodejs_app_dev_env and is_vagrant

@@ -10,13 +10,6 @@
   shell: supervisord -c /etc/supervisord.conf
   when: is_docker
 
-- name: Enable and/or restart systemd unit
-  service:
-    name: "{{ nodejs_app_name }}"
-    enabled: yes
-    state: restarted
-  when: not is_docker
-
 - name: Wait for the application to finish initializing before proceeding
   wait_for:
     host: "{{ nodejs_app_host_address }}"
@@ -24,7 +17,7 @@
     state: started
     delay: 10
     timeout: 300
-  
+
 - name: Test the application endpoint and check the result for the presence of a requested string
   uri:
     url: "http://{{ nodejs_app_host_address }}:{{ nodejs_app_tcp_port }}{{ nodejs_app_test_http_endpoint }}"

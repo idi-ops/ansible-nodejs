@@ -1,9 +1,21 @@
 [program:{{ nodejs_app_name }}]
+
+{% if nodejs_app_dev_env %}
+command={{ nodejs_dev_executable }} -L {{ nodejs_app_start_script }}
+{% else %}
 command={{ nodejs_executable }} {{ nodejs_app_start_script }}
+{% endif %}
+
 {% if nodejs_app_env_vars %}
 environment={% for arg in nodejs_app_env_vars %}{{ arg }}{% if not loop.last %},{% endif %}{% endfor %}
 {% endif %}
+
+{% if nodejs_app_dev_env %}
+user=root
+{% else %}
 user={{ nodejs_app_username }}
+{% endif %}
+
 directory={{ nodejs_app_install_dir }}
 autorestart=true
 redirect_stderr=true
