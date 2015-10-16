@@ -44,4 +44,4 @@
     mode: 0644
     owner: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
     group: "{{ nodejs_app_dev_groupname if is_vagrant else nodejs_app_groupname }}"
-  when: nodejs_app_dev_env
+  when: nodejs_app_dev_env and is_vagrant
