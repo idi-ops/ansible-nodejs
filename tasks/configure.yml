@@ -20,17 +20,12 @@
     depth: 1
   when: nodejs_app_git_clone
 
-- name: make sure the application repository is owned by the appropriate user
+- name: make sure the application install directory exists and is owned by the appropriate user
   file:
       path: "{{ nodejs_app_install_dir }}"
       owner: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
       group: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
       recurse: true
-  when: nodejs_app_git_clone
-
-- name: make sure the application directory exists
-  file:
-      path: "{{ nodejs_app_install_dir }}"
       state: directory
 
 - name: Run application related commands as the application user
