@@ -22,6 +22,12 @@
     - "{{ nodejs_app_rpm_packages }}"
   when: is_fedora
 
+- name: Ensure rsync is installed for npm path workaround if a Fedora Vagrant environment is being used
+  dnf:
+    name: rsync
+    state: present
+  when: (is_vagrant) and (is_fedora)
+
 - name: Install Node.js on CentOS
   yum:
     name: "{{ nodejs_centos_rpms[nodejs_version] }}"
@@ -41,6 +47,12 @@
     - "{{ nodejs_rpm_packages }}"
     - "{{ nodejs_app_rpm_packages }}"
   when: is_centos
+
+- name: Ensure rsync is installed for npm path workaround if a CentOS Vagrant environment is being used
+  yum:
+    name: rsync
+    state: present
+  when: (is_vagrant) and (is_centos)
 
 - name: Adjust npm version
   npm:
