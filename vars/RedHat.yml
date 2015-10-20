@@ -22,3 +22,8 @@ nodejs_rpm_packages:
 
 nodejs_npm_packages:
   - grunt-cli
+
+# Required for a Windows/npm path workaround, documented on the following page as "Step 3":
+# http://perrymitchell.net/article/npm-symlinks-through-vagrant-windows/
+nodejs_app_tmp_build_dir: "/tmp/{{ nodejs_app_name  }}-build-dir"
+
