@@ -32,7 +32,11 @@ nodejs_app_git_clone: true
 # MANDATORY
 # The absolute file system path where either the application directory or the
 # Git working directory will be located.
-nodejs_app_install_dir: "/opt/{{ nodejs_app_name }}"
+#
+# When a Vagrant box is used this path has to be any value other than /home/vagrant
+# Setting it to a home directory will result in SSH issues. /home/vagrant/sync is a
+# reasonable choice.
+nodejs_app_install_dir: /home/vagrant/sync
 
 # A Git repository's URL. This is mandatory if 'nodejs_app_git_clone' is set to
 # 'true'.
