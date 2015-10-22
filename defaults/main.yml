@@ -102,10 +102,6 @@ nodejs_app_dev_groupname: vagrant
 nodejs_app_username: nodejs
 nodejs_app_dev_username: vagrant
 
-# MANDATORY
-# The absolute file system path where the Git working directory will be located.
-nodejs_app_install_dir: "/opt/{{ nodejs_app_name }}"
-
 # List of commands that will be executed in order within the application's
 # Git working directory.
 nodejs_app_commands: []
