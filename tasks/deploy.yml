@@ -4,13 +4,9 @@
     src: systemd_unit.j2
     dest: "/etc/systemd/system/{{ nodejs_app_name }}.service"
   when: (not is_docker) and (nodejs_app_start_script)
-
-- name: Enable and/or restart systemd unit
-  service:
-    name: "{{ nodejs_app_name }}"
-    enabled: yes
-    state: restarted
-  when: (not is_docker) and (nodejs_app_start_script)
+  notify:
+    - reload systemd
+    - Enable and/or restart systemd unit
 
 - name: Create Supervisor config for Docker containers
   template:
