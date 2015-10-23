@@ -32,7 +32,11 @@ nodejs_app_git_clone: true
 # MANDATORY
 # The absolute file system path where either the application directory or the
 # Git working directory will be located.
-nodejs_app_install_dir: "/opt/{{ nodejs_app_name }}"
+#
+# When a Vagrant box is used this path has to be any value other than /home/vagrant
+# Setting it to a home directory will result in SSH issues. /home/vagrant/sync is a
+# reasonable choice.
+nodejs_app_install_dir: /home/vagrant/sync
 
 # A Git repository's URL. This is mandatory if 'nodejs_app_git_clone' is set to
 # 'true'.
@@ -63,7 +67,11 @@ nodejs_app_monitor_file_extensions:
   - js
   - json
 
-# A TCP port used by the application.
+# A TCP port used by the application. This value will be made available using an
+# environment variable. The variable will be called NODEJS_APP_NAME_TCP_PORT, except
+# the 'nodejs_app_name' value provided will be used. For example, if 'nodejs_app_name'
+# is set to 'foo-bar' then a FOO_BAR_TCP_PORT environment variable will be available
+# for the application to use.
 # Example: 8080
 nodejs_app_tcp_port: ''
 
@@ -93,10 +101,6 @@ nodejs_app_dev_groupname: vagrant
 # The user account name used by the application process.
 nodejs_app_username: nodejs
 nodejs_app_dev_username: vagrant
-
-# MANDATORY
-# The absolute file system path where the Git working directory will be located.
-nodejs_app_install_dir: "/opt/{{ nodejs_app_name }}"
 
 # List of commands that will be executed in order within the application's
 # Git working directory.
