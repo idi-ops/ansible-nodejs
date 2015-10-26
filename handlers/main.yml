@@ -2,9 +2,3 @@
 - name: reload systemd
   command: systemctl daemon-reload
   when: not is_docker
-- name: Enable and/or restart systemd unit
-  service:
-    name: "{{ nodejs_app_name }}"
-    enabled: yes
-    state: restarted
-  when: (not is_docker) and (nodejs_app_start_script)
