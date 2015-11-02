@@ -19,6 +19,7 @@ nodejs_fedora_rpms:
 
 nodejs_rpm_packages:
   - git
+  - gcc-c++
 
 nodejs_npm_packages:
   - grunt-cli
