@@ -3,7 +3,7 @@
 # set. Variables with values provided can be used as-is unless there is a reason
 # to override them.
 
-# Node.js version required by application (supported versions: 0.10.36*, 0.10.40, 4.1.1)
+# Node.js version required by application (supported versions: 0.10.36*, 0.10.40, 4.2.0, 4.2.1)
 nodejs_version: 0.10.36
 
 # If a specific npm version is needed, specify it here
