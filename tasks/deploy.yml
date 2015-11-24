@@ -7,7 +7,7 @@
   notify:
     - reload systemd
 
-- name: Enable and/or restart systemd unit
+- name: Ensure systemd unit is enabled and restarted
   service:
     name: "{{ nodejs_app_name }}"
     enabled: yes
