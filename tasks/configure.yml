@@ -11,7 +11,7 @@
     group: "{{ nodejs_app_groupname }}"
     shell: "{{ nodejs_app_user_shell }}"
     home: "{{ nodejs_app_home_dir }}"
-    
+
 - name: Clone application repository
   git:
     repo: "{{ nodejs_app_git_repo | mandatory }}"
@@ -19,6 +19,14 @@
     version: "{{ nodejs_app_git_branch | mandatory }}"
     depth: 1
   when: nodejs_app_git_clone
+
+- name: make sure the application install directory exists and is owned by the appropriate user
+  file:
+      path: "{{ nodejs_app_install_dir }}"
+      owner: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
+      group: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
+      recurse: true
+      state: directory
 
 # Begin Windows/npm path workaround of copying application directory contents to a path
 # not managed by VirtualBox Shared Folders or exposed to Windows. Run commands like
@@ -40,7 +48,7 @@
     group: "{{ nodejs_app_dev_groupname }}"
   when: (is_vagrant) and (nodejs_app_commands)
 
-- name: Run application related commands
+- name: Run application related commands as the application user
   command: "{{ item }}"
   args:
     chdir: "{{ nodejs_app_tmp_build_dir if is_vagrant else nodejs_app_install_dir }}"
@@ -49,8 +57,16 @@
   become_user: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
   when: nodejs_app_commands
 
+- name: Set up VirtualBox Shared Folders npm workaround
+  copy:
+    src: npmrc
+    dest: "/home/{{ nodejs_app_dev_username if nodejs_app_dev_env else nodejs_app_username }}/.npmrc"
+    mode: 0644
+    owner: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
+    group: "{{ nodejs_app_dev_groupname if is_vagrant else nodejs_app_groupname }}"
+  when: nodejs_app_dev_env and is_vagrant
+
 - name: Copy build directory contents back to application directory if a Vagrant environment is being used
   command: rsync -a "{{ nodejs_app_tmp_build_dir }}/" "{{ nodejs_app_install_dir }}/"
   when: (is_vagrant) and (nodejs_app_commands)
 # End Windows/npm path workaround
-
