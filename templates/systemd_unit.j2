@@ -18,6 +18,9 @@ Group={{ nodejs_app_groupname }}
 Restart=on-failure
 StandardOutput=journal
 StandardError=journal
+# Include the secret file maintained by the https://github.com/idi-ops/ansible-secrets role if it
+# exists.
+EnvironmentFile=-/etc/sysconfig/app-secrets
 {% if nodejs_app_env_vars or nodejs_app_tcp_port %}
 Environment={% for arg in nodejs_app_env_vars %}{{ arg }}{% if not loop.last %} {% endif %}{% endfor %}{% if nodejs_app_tcp_port %} {{ nodejs_app_name|upper|replace('-','_') }}_TCP_PORT={{ nodejs_app_tcp_port }}{% endif %}
 {% endif %}
