@@ -4,7 +4,7 @@
 # to override them.
 
 # Node.js version required by application (see vars/RedHat.yml for supported versions)
-nodejs_version: 4.4.1
+nodejs_version: 4.4.3
 
 # If a specific npm version is needed, specify it here
 #nodejs_npm_version: 2.14.5
