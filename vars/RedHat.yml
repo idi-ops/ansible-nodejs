@@ -27,6 +27,7 @@ nodejs_centos_rpms:
   4.4.0: https://rpm.nodesource.com/pub_4.x/el/7/x86_64/nodejs-4.4.0-1nodesource.el7.centos.x86_64.rpm
   4.4.1: https://rpm.nodesource.com/pub_4.x/el/7/x86_64/nodejs-4.4.1-1nodesource.el7.centos.x86_64.rpm
   4.4.2: https://rpm.nodesource.com/pub_4.x/el/7/x86_64/nodejs-4.4.2-1nodesource.el7.centos.x86_64.rpm
+  4.4.3: https://rpm.nodesource.com/pub_4.x/el/7/x86_64/nodejs-4.4.3-1nodesource.el7.centos.x86_64.rpm
   6.0.0: https://rpm.nodesource.com/pub_6.x/el/7/x86_64/nodejs-6.0.0-1nodesource.el7.centos.x86_64.rpm
 
 nodejs_fedora_rpms:
@@ -49,6 +50,7 @@ nodejs_fedora_rpms:
   4.4.0: https://rpm.nodesource.com/pub_4.x/fc/23/x86_64/nodejs-4.4.0-1nodesource.fc23.x86_64.rpm
   4.4.1: https://rpm.nodesource.com/pub_4.x/fc/23/x86_64/nodejs-4.4.1-1nodesource.fc23.x86_64.rpm
   4.4.2: https://rpm.nodesource.com/pub_4.x/fc/23/x86_64/nodejs-4.4.2-1nodesource.fc23.x86_64.rpm
+  4.4.3: https://rpm.nodesource.com/pub_4.x/fc/23/x86_64/nodejs-4.4.3-1nodesource.fc23.x86_64.rpm
   6.0.0: https://rpm.nodesource.com/pub_6.x/fc/23/x86_64/nodejs-6.0.0-1nodesource.fc23.x86_64.rpm
 
 nodejs_rpm_packages:
