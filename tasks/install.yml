@@ -7,11 +7,29 @@
     creates: /usr/bin/repoquery
   when: is_fedora
 
-- name: Install Node.js on Fedora
+- name: Enable Node.js LTS repository on Fedora
   dnf:
-    name: "{{ nodejs_fedora_rpms[nodejs_version] }}"
+    name: "{{ nodejs_lts_fedora_repository_rpm }}"
     state: present
-  when: is_fedora
+  when: is_fedora and nodejs_branch == "lts"
+
+- name: Enable Node.js Current repository on Fedora
+  dnf:
+    name: "{{ nodejs_current_fedora_repository_rpm }}"
+    state: present
+  when: is_fedora and nodejs_branch == "current"
+
+- name: Install latest Node.js version on Fedora
+  dnf:
+    name: nodejs
+    state: latest
+  when: is_fedora and nodejs_version is undefined
+
+- name: Install specific Node.js version on Fedora
+  dnf:
+    name: "nodejs-{{ nodejs_version }}"
+    state: present
+  when: is_fedora and nodejs_version is defined
 
 - name: Install additional RPM packages on Fedora
   dnf:
@@ -28,11 +46,29 @@
     state: present
   when: (is_vagrant) and (is_fedora)
 
-- name: Install Node.js on CentOS
-  yum:
-    name: "{{ nodejs_centos_rpms[nodejs_version] }}"
+- name: Enable Node.js LTS repository on CentOS
+  dnf:
+    name: "{{ nodejs_lts_centos_repository_rpm }}"
     state: present
-  when: is_centos
+  when: is_centos and nodejs_branch == "lts"
+
+- name: Enable Node.js Current repository on CentOS
+  dnf:
+    name: "{{ nodejs_current_centos_repository_rpm }}"
+    state: present
+  when: is_centos and nodejs_branch == "current"
+
+- name: Install latest Node.js version on CentOS
+  yum:
+    name: nodejs
+    state: latest
+  when: is_centos and nodejs_version is undefined
+
+- name: Install specific Node.js version on CentOS
+  dnf:
+    name: "nodejs-{{ nodejs_version }}"
+    state: present
+  when: is_centos and nodejs_version is defined
 
 - name: Fail if nodejs- RPM packages are specified in nodejs_app_rpm_packages
   fail:

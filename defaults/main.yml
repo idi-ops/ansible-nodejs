@@ -3,8 +3,13 @@
 # set. Variables with values provided can be used as-is unless there is a reason
 # to override them.
 
-# Node.js version required by application (see vars/RedHat.yml for supported versions)
-nodejs_version: 4.4.3
+# Node.js branch ('lts' for long-term support or 'current' for the current
+# branch)
+nodejs_branch: lts
+
+# Node.js version required by application (leave undefined for always using
+# the latest within the specified branch)
+#nodejs_version: x.y.z
 
 # If a specific npm version is needed, specify it here
 #nodejs_npm_version: 2.14.5
