@@ -47,13 +47,13 @@
   when: (is_vagrant) and (is_fedora)
 
 - name: Enable Node.js LTS repository on CentOS
-  dnf:
+  yum:
     name: "{{ nodejs_lts_centos_repository_rpm }}"
     state: present
   when: is_centos and nodejs_branch == "lts"
 
 - name: Enable Node.js Current repository on CentOS
-  dnf:
+  yum:
     name: "{{ nodejs_current_centos_repository_rpm }}"
     state: present
   when: is_centos and nodejs_branch == "current"
@@ -65,7 +65,7 @@
   when: is_centos and nodejs_version is undefined
 
 - name: Install specific Node.js version on CentOS
-  dnf:
+  yum:
     name: "nodejs-{{ nodejs_version }}"
     state: present
   when: is_centos and nodejs_version is defined
