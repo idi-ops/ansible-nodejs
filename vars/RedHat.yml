@@ -9,11 +9,11 @@ nodejs_app_home_dir: /var/empty/nodejs
 
 nodejs_lts_centos_repository_rpm: https://rpm.nodesource.com/pub_4.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
 
-nodejs_lts_fedora_repository_rpm: https://rpm.nodesource.com/pub_4.x/fc/23/x86_64/nodesource-release-fc23-1.noarch.rpm
+nodejs_lts_fedora_repository_rpm: https://rpm.nodesource.com/pub_4.x/fc/24/x86_64/nodesource-release-fc24-1.noarch.rpm
 
 nodejs_current_centos_repository_rpm: https://rpm.nodesource.com/pub_6.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
 
-nodejs_current_fedora_repository_rpm: https://rpm.nodesource.com/pub_6.x/fc/23/x86_64/nodesource-release-fc23-1.noarch.rpm
+nodejs_current_fedora_repository_rpm: https://rpm.nodesource.com/pub_6.x/fc/24/x86_64/nodesource-release-fc24-1.noarch.rpm
 
 nodejs_rpm_packages:
   - git
