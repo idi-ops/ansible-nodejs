@@ -20,13 +20,14 @@
     depth: 1
   when: nodejs_app_git_clone
 
-- name: make sure the application install directory exists and is owned by the appropriate user
+- name: Make sure the application install directory exists and is owned by the appropriate user
   file:
       path: "{{ nodejs_app_install_dir }}"
       owner: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
       group: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
       recurse: true
       state: directory
+  when: not is_vagrant
 
 # Begin Windows/npm path workaround of copying application directory contents to a path
 # not managed by VirtualBox Shared Folders or exposed to Windows. Run commands like
