@@ -25,12 +25,12 @@
 
 - block:
 
-    - name: Copy Flow Manager configuration file to temporary location in a Vagrant environment
+    - name: Copy application configuration file to temporary location in a Vagrant environment
       command: cp '{{ item.src }}' '/tmp/{{ item.src | basename }}'
       with_items:
         - "{{ nodejs_app_config_files }}"
 
-    - name: Replace the production Preferences Server's address with a user provided one
+    - name: Replace the strings in the application configuration files
       replace:
         dest: '/tmp/{{ item.0.src | basename }}'
         regexp: '{{ item.1.regexp }}'
@@ -40,7 +40,7 @@
         - "{{ nodejs_app_config_files }}"
         - changes
 
-    - name: Move Flow Manager configuration file back to original location in a Vagrant environment
+    - name: Move application configuration file back to original location in a Vagrant environment
       command: mv '/tmp/{{ item.src | basename }}' '{{ item.src }}'
       with_items:
         - "{{ nodejs_app_config_files }}"
@@ -48,7 +48,7 @@
   when: is_vagrant
 
 # If VirtualBox Shared Folders on Windows aren't being used then modify files directly.
-- name: Replace the production Preferences Server's address with a user provided one
+- name: Replace the strings in the application configuration files
   replace:
     dest: '{{ item.0.src }}'
     regexp: '{{ item.1.regexp }}'
