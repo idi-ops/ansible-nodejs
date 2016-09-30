@@ -47,7 +47,7 @@
     mode: 0644
     owner: "{{ nodejs_app_dev_username }}"
     group: "{{ nodejs_app_dev_groupname }}"
-  when: (is_vagrant) and (nodejs_app_commands)
+  when: (is_vagrant) and (nodejs_app_commands) and not (nodejs_npm_symlinks)
 
 - name: Run application related commands as the application user
   command: "{{ item }}"
