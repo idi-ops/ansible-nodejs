@@ -29,6 +29,13 @@
       state: directory
   when: not is_vagrant
 
+# Workaround for NPM 3.x stack exceeded issue 
+- name: Increase V8 stack size to work around issue in npm 3.x
+  lineinfile:
+    line: '#!/usr/bin/node --stack-size=2048'
+    regexp: '^#!.*'
+    state: present
+
 # Begin Windows/npm path workaround of copying application directory contents to a path
 # not managed by VirtualBox Shared Folders or exposed to Windows. Run commands like
 # 'npm install' in the temporary directory and then copy the results back to the original
