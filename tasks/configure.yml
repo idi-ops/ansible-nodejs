@@ -35,6 +35,7 @@
     line: '#!/usr/bin/node --stack-size=2048'
     regexp: '^#!.*'
     state: present
+    dest: /usr/bin/npm
 
 # Begin Windows/npm path workaround of copying application directory contents to a path
 # not managed by VirtualBox Shared Folders or exposed to Windows. Run commands like
