@@ -64,6 +64,12 @@ nodejs_app_start_script: ''
 # will only work if 'nodejs_app_start_script' is set.
 nodejs_app_dev_env: false
 
+# There are multiple issues in NPM 3.x and VirtualBox shared folders that
+# cause `npm install` to fail. To work around these issues, we bind mount
+# the node_modules directory outside the Virtual Shared Folders area so it 
+# uses the native filesystem.
+nodejs_app_shadow_node_modules: true
+
 # A YAML list of file extensions that will be monitored for changes. If changes are
 # detected then the Node.js process will be restarted.
 nodejs_app_monitor_file_extensions:
