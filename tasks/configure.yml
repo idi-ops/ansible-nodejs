@@ -29,45 +29,43 @@
       state: directory
   when: not is_vagrant
 
-# Begin Windows/npm path workaround of copying application directory contents to a path
-# not managed by VirtualBox Shared Folders or exposed to Windows. Run commands like
-# 'npm install' in the temporary directory and then copy the results back to the original
-# directory where processes like nodemon will see the changes.
-#
-# The issue itself is documented on the following page as "Step 3":
-# http://perrymitchell.net/article/npm-symlinks-through-vagrant-windows/
-- name: Copy application directory contents to temporary build directory if a Vagrant environment is being used
-  command: rsync -a --delete --exclude='.git/' --exclude='.vagrant/' "{{ nodejs_app_install_dir }}/" "{{ nodejs_app_tmp_build_dir }}/"
-  when: is_vagrant
+# Workaround for various issues with VirtualBox shared folders and NPM is
+# to bind mount the node_modules directory outside the shared folder mount
+# point.
 
-- name: Prevent npm from using symlinks
-  copy:
-    src: npmrc
-    dest: "/home/{{ nodejs_app_dev_username }}/.npmrc"
-    mode: 0644
-    owner: "{{ nodejs_app_dev_username }}"
-    group: "{{ nodejs_app_dev_groupname }}"
-  when: (is_vagrant) and (nodejs_app_commands)
+- name: Create application's node_modules directory under /var/tmp
+  file:
+    path: '/var/tmp/{{ nodejs_app_dev_username }}-{{ nodejs_app_name }}'
+    owner: '{{ nodejs_app_dev_username }}'
+    group: '{{ nodejs_app_dev_username }}'
+    state: directory
+    mode: '0775'
+  when: (is_vagrant) and (nodejs_app_shadow_node_modules)
+
+- name: Ensure the application's node_module directory exists
+  file:
+    path: '{{ nodejs_app_install_dir }}/node_modules'
+    owner: '{{ nodejs_app_dev_username }}'
+    group: '{{ nodejs_app_dev_username }}'
+    state: directory
+    mode: '0775'
+  when: (is_vagrant) and (nodejs_app_shadow_node_modules)
+
+
+- name: Bind mount application's node_modules
+  mount:
+    name: '{{ nodejs_app_install_dir }}/node_modules'
+    src: '/var/tmp/{{ nodejs_app_dev_username }}-{{ nodejs_app_name }}'
+    fstype: none
+    opts: bind
+    state: mounted
+  when: (is_vagrant) and (nodejs_app_shadow_node_modules)
 
 - name: Run application related commands as the application user
   command: "{{ item }}"
   args:
-    chdir: "{{ nodejs_app_tmp_build_dir if is_vagrant else nodejs_app_install_dir }}"
+    chdir: "{{ nodejs_app_install_dir }}"
   with_items: "{{ nodejs_app_commands }}"
   become: yes
   become_user: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
   when: nodejs_app_commands
-
-- name: Set up VirtualBox Shared Folders npm workaround
-  copy:
-    src: npmrc
-    dest: "/home/{{ nodejs_app_dev_username if nodejs_app_dev_env else nodejs_app_username }}/.npmrc"
-    mode: 0644
-    owner: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
-    group: "{{ nodejs_app_dev_groupname if is_vagrant else nodejs_app_groupname }}"
-  when: nodejs_app_dev_env and is_vagrant
-
-- name: Copy build directory contents back to application directory if a Vagrant environment is being used
-  command: rsync -a "{{ nodejs_app_tmp_build_dir }}/" "{{ nodejs_app_install_dir }}/"
-  when: (is_vagrant) and (nodejs_app_commands)
-# End Windows/npm path workaround
