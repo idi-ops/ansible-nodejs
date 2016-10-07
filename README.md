@@ -24,6 +24,14 @@ Please refer to the [defaults/main.yml](https://github.com/idi-ops/ansible-nodej
 
 It's important to note that developers are expected to keep listing their dependencies in package.json as usual. However, this role offers the variable nodejs_app_npm_packages which has similar functionality but should only be used when certain packages need to be installed globally, in special cases.
 
+# Warning about Vagrant and VirtualBox Shared Folders
+
+While working with npm (2.x and 3.x) various issues were uncorevered when using VirtualBox Shared Folders that would prevent `npm install` or other operations from completeting successfully.
+
+To avoid these issues while still making use of VirtualBox Shared Folders to keep the target application's code synchronized between host and VM, we make use of [bind mounts](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Global_File_System_2/s1-manage-mountorder.html) that "shadow" the VM's node_modules directory by mounting it outside the VirtualBox Shared Folder area. This creates a situation where the node_modules directory inside the VM is completely separated from the one on the host. Besides working around issues in npm/VirtualBox, it also helps in situations where the host and guest operating systems are different (since npm native modules will not work in that situation).
+
+This behavior is controlled by the nodejs_app_shadow_node_modules (default=true). If you want to disable his, set the variable to 'false' (or 'no').
+
 ## Requirements
 
 The following roles are required:
