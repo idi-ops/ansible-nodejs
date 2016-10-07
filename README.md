@@ -24,7 +24,7 @@ Please refer to the [defaults/main.yml](https://github.com/idi-ops/ansible-nodej
 
 It's important to note that developers are expected to keep listing their dependencies in package.json as usual. However, this role offers the variable nodejs_app_npm_packages which has similar functionality but should only be used when certain packages need to be installed globally, in special cases.
 
-# Warning about Vagrant and VirtualBox Shared Folders
+## Warning about Vagrant and VirtualBox Shared Folders
 
 While working with npm (2.x and 3.x) various issues were uncorevered when using VirtualBox Shared Folders that would prevent `npm install` or other operations from completeting successfully.
 
