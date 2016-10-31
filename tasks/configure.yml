@@ -57,7 +57,7 @@
     name: '{{ nodejs_app_install_dir }}/node_modules'
     src: '/var/tmp/{{ nodejs_app_dev_username }}-{{ nodejs_app_name }}'
     fstype: none
-    opts: bind
+    opts: bind,defaults
     state: mounted
   when: (is_vagrant) and (nodejs_app_shadow_node_modules)
 
