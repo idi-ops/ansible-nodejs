@@ -29,38 +29,6 @@
       state: directory
   when: not is_vagrant
 
-# Workaround for various issues with VirtualBox shared folders and NPM is
-# to bind mount the node_modules directory outside the shared folder mount
-# point.
-
-- name: Create application's node_modules directory under /var/tmp
-  file:
-    path: '/var/tmp/{{ nodejs_app_dev_username }}-{{ nodejs_app_name }}'
-    owner: '{{ nodejs_app_dev_username }}'
-    group: '{{ nodejs_app_dev_username }}'
-    state: directory
-    mode: '0775'
-  when: (is_vagrant) and (nodejs_app_shadow_node_modules)
-
-- name: Ensure the application's node_module directory exists
-  file:
-    path: '{{ nodejs_app_install_dir }}/node_modules'
-    owner: '{{ nodejs_app_dev_username }}'
-    group: '{{ nodejs_app_dev_username }}'
-    state: directory
-    mode: '0775'
-  when: (is_vagrant) and (nodejs_app_shadow_node_modules)
-
-
-- name: Bind mount application's node_modules
-  mount:
-    name: '{{ nodejs_app_install_dir }}/node_modules'
-    src: '/var/tmp/{{ nodejs_app_dev_username }}-{{ nodejs_app_name }}'
-    fstype: none
-    opts: bind,defaults
-    state: mounted
-  when: (is_vagrant) and (nodejs_app_shadow_node_modules)
-
 - name: Run application related commands as the application user
   command: "{{ item }}"
   args:
