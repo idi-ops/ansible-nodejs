@@ -15,6 +15,8 @@ nodejs_current_centos_repository_rpm: https://rpm.nodesource.com/pub_7.x/el/7/x8
 
 nodejs_current_fedora_repository_rpm: https://rpm.nodesource.com/pub_7.x/fc/24/x86_64/nodesource-release-fc24-1.noarch.rpm
 
+nodejs_yarn_repository_url: https://dl.yarnpkg.com/rpm/yarn.repo
+
 nodejs_rpm_packages:
   - git
   - gcc-c++
