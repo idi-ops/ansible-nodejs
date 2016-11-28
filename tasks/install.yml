@@ -84,6 +84,18 @@
     - "{{ nodejs_app_rpm_packages }}"
   when: is_centos
 
+- name: Enable Yarn repository on CentOS/Fedora
+  get_url:
+    url: "{{ nodejs_yarn_repository_url }}"
+    dest: "/etc/yum.repos.d/yarn.repo"
+  when: nodejs_yarn_enabled
+
+- name: Install Yarn package manager on CentOS/Fedora
+  package:
+    name: yarn
+    state: latest
+  when: nodejs_yarn_enabled
+
 - name: Ensure rsync is installed for npm path workaround if a CentOS Vagrant environment is being used
   yum:
     name: rsync
