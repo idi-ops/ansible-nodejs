@@ -17,7 +17,7 @@
     repo: "{{ nodejs_app_git_repo | mandatory }}"
     dest: "{{ nodejs_app_install_dir | mandatory }}"
     version: "{{ nodejs_app_git_branch | mandatory }}"
-    depth: 1
+    refspec: "+refs/pull/*/head:refs/remotes/origin/pr/*"
   when: nodejs_app_git_clone
 
 - name: Make sure the application install directory exists and is owned by the appropriate user
@@ -27,7 +27,6 @@
       group: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
       recurse: true
       state: directory
-  when: not is_vagrant
 
 - name: Run application related commands as the application user
   command: "{{ item }}"
