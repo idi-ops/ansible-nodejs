@@ -118,3 +118,20 @@ nodejs_app_commands: []
 # Example:
 # - NODE_ENV=development.all.local
 nodejs_app_env_vars: []
+
+# List of text config files and the regexps needed to change the settings
+# Example:
+# - src: "/configs/gpii.preferencesServer.config.production.json"
+#   changes:
+#     - regexp: '/user/%userToken'
+#       replace: '/preferences/%userToken'
+#     - regexp: '/otherurl/%user'
+#       replace: '/otherpreferences/%user'
+# - src: "/gpii/configs/gpii.preferencesServer.config.production.json"
+#   changes:
+#     - regexp: '/user/%userToken'
+#       replace: '/preferences/%userToken'
+#     - regexp: '/otherurl/%user'
+#       replace: '/otherpreferences/%user'
+nodejs_app_config_files: []
+
