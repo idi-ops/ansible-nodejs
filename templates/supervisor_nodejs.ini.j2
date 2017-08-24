@@ -3,7 +3,7 @@
 {% if nodejs_app_dev_env %}
 command={{ nodejs_dev_executable }} {{ nodejs_app_start_script }}
 {% else %}
-command={{ nodejs_executable }} {{ nodejs_app_start_script }}
+command={{ nodejs_executable }} {{ nodejs_options }} {{ nodejs_app_start_script }}
 {% endif %}
 
 {% if nodejs_app_env_vars %}

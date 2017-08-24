@@ -11,6 +11,9 @@ nodejs_branch: lts
 # the latest within the specified branch)
 #nodejs_version: x.y.z
 
+# Additional options passed to the node executable (see node(1) man page)
+nodejs_options: ''
+
 # If a specific npm version is needed, specify it here
 #nodejs_npm_version: 2.14.5
 
