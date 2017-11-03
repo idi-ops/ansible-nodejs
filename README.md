@@ -1,6 +1,6 @@
 # Node.js Ansible Role
 
-This role assists with deploying a Node.js application on Fedora 22, CentOS 7, or a Docker container (based on CentOS/Fedora). 
+This role assists with deploying a Node.js application on Fedora, CentOS 7, or a Docker container (based on CentOS/Fedora).
 
 It currently performs the following tasks:
 
@@ -13,7 +13,7 @@ It currently performs the following tasks:
 
 The role uses the following [Ansible tags](http://docs.ansible.com/ansible/playbooks_tags.html) to control the provisioning process:
 
-* ``install`` - install software using package managers and (not recommended) using source 
+* ``install`` - install software using package managers and (not recommended) using source
 * ``configure`` - add user accounts, groups, make filesystem related changes, clone git repositories, run application commands, etc.
 * ``deploy`` - enable and restart a Systemd unit if a VM or physical machine is being used or in the case of Docker, add a Supervisor config
 * ``test`` - check the application's HTTP endpoint for a response to confirm it is working
