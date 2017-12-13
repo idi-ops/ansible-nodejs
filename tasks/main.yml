@@ -4,19 +4,19 @@
   tags:
     - always
     
-- include: install.yml
+- include_tasks: install.yml
   tags:
     - install
   
-- include: configure.yml
+- include_tasks: configure.yml
   tags:
     - configure
 
-- include: deploy.yml
+- include_tasks: deploy.yml
   tags:
     - deploy
 
-- include: test.yml
+- include_tasks: test.yml
   when: >
     (nodejs_app_host_address) and (nodejs_app_tcp_port) and (nodejs_app_test_http_endpoint) and
     (nodejs_app_test_http_status_code) and (nodejs_app_test_string)
