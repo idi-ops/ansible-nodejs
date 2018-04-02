@@ -3,20 +3,24 @@
   include_vars: "{{ ansible_os_family }}.yml"
   tags:
     - always
-    
-- include_tasks: install.yml
+
+- name: Include Install-related tasks
+  include_tasks: install.yml
   tags:
     - install
-  
-- include_tasks: configure.yml
+
+- name: Include Configure-related tasks
+  include_tasks: configure.yml
   tags:
     - configure
 
-- include_tasks: deploy.yml
+- name: Include Deploy-related tasks
+  include_tasks: deploy.yml
   tags:
     - deploy
 
-- include_tasks: test.yml
+- name: Include Test-related tasks
+  include_tasks: test.yml
   when: >
     (nodejs_app_host_address) and (nodejs_app_tcp_port) and (nodejs_app_test_http_endpoint) and
     (nodejs_app_test_http_status_code) and (nodejs_app_test_string)
