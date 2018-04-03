@@ -1,0 +1,9 @@
+*.pyc
+.*.sw?
+.cache
+.molecule
+.vagrant
+pytestdebug.log
+venv
+__pycache__
+.ropeproject

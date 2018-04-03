@@ -1,0 +1,15 @@
+- hosts: all
+  vars:
+    nodejs_app_name: infusion
+    nodejs_branch: lts
+    nodejs_app_npm_packages:
+      - testem
+      - istanbul
+    nodejs_app_git_repo: https://github.com/fluid-project/kettle.git
+    nodejs_app_git_branch: master
+    nodejs_app_git_clone: true
+    nodejs_app_dev_username: root
+
+  roles:
+    - ansible-facts
+    - ansible-nodejs
