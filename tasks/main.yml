@@ -5,22 +5,22 @@
     - always
 
 - name: Include Install-related tasks
-  include_tasks: install.yml
+  import_tasks: install.yml
   tags:
     - install
 
 - name: Include Configure-related tasks
-  include_tasks: configure.yml
+  import_tasks: configure.yml
   tags:
     - configure
 
 - name: Include Deploy-related tasks
-  include_tasks: deploy.yml
+  import_tasks: deploy.yml
   tags:
     - deploy
 
 - name: Include Test-related tasks
-  include_tasks: test.yml
+  import_tasks: test.yml
   when: >
     (nodejs_app_host_address) and (nodejs_app_tcp_port) and (nodejs_app_test_http_endpoint) and
     (nodejs_app_test_http_status_code) and (nodejs_app_test_string)
