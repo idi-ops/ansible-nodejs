@@ -7,13 +7,13 @@ nodejs_app_user_shell: /sbin/nologin
 
 nodejs_app_home_dir: /var/empty/nodejs
 
-nodejs_lts_centos_repository_rpm: https://rpm.nodesource.com/pub_8.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
+nodejs_lts_centos_repository_rpm: https://rpm.nodesource.com/pub_10.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
 
-nodejs_lts_fedora_repository_rpm: https://rpm.nodesource.com/pub_8.x/fc/28/x86_64/nodesource-release-fc28-1.noarch.rpm
+nodejs_lts_fedora_repository_rpm: https://rpm.nodesource.com/pub_10.x/fc/28/x86_64/nodesource-release-fc28-1.noarch.rpm
 
-nodejs_current_centos_repository_rpm: https://rpm.nodesource.com/pub_10.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
+nodejs_current_centos_repository_rpm: https://rpm.nodesource.com/pub_11.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
 
-nodejs_current_fedora_repository_rpm: https://rpm.nodesource.com/pub_10.x/fc/28/x86_64/nodesource-release-fc28-1.noarch.rpm
+nodejs_current_fedora_repository_rpm: https://rpm.nodesource.com/pub_11.x/fc/28/x86_64/nodesource-release-fc28-1.noarch.rpm
 
 nodejs_yarn_repository_url: https://dl.yarnpkg.com/rpm/yarn.repo
 
