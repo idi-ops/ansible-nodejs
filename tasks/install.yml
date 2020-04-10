@@ -1,10 +1,9 @@
 ---
 
-# Workaround for https://github.com/ansible/ansible-modules-extras/issues/471
 - name: Install Yum Utilities
-  shell: dnf -y install yum-utils
-  args:
-    creates: /usr/bin/repoquery
+  dnf:
+    name: yum-utils
+    state: present
   when: is_fedora
 
 - name: Enable Node.js LTS repository on Fedora
@@ -22,7 +21,7 @@
 - name: Install latest Node.js version on Fedora
   dnf:
     name: nodejs
-    state: latest
+    state: present
   when: is_fedora and nodejs_version is undefined
 
 - name: Install specific Node.js version on Fedora
@@ -33,11 +32,8 @@
 
 - name: Install additional RPM packages on Fedora
   dnf:
-    name: "{{ item }}"
+    name: "{{ query('flattened', ['{{ nodejs_rpm_packages }}', '{{ nodejs_app_rpm_packages }}']) }}"
     state: present
-  with_flattened:
-    - "{{ nodejs_rpm_packages }}"
-    - "{{ nodejs_app_rpm_packages }}"
   when: is_fedora
 
 - name: Ensure rsync is installed for npm path workaround if a Fedora Vagrant environment is being used
@@ -61,7 +57,7 @@
 - name: Install latest Node.js version on CentOS
   yum:
     name: nodejs
-    state: latest
+    state: present
   when: is_centos and nodejs_version is undefined
 
 - name: Install specific Node.js version on CentOS
@@ -77,11 +73,8 @@
 
 - name: Install additional RPM packages on CentOS
   yum:
-    name: "{{ item }}"
+    name: "{{ query('flattened', ['{{ nodejs_rpm_packages }}', '{{ nodejs_app_rpm_packages }}']) }}"
     state: present
-  with_flattened:
-    - "{{ nodejs_rpm_packages }}"
-    - "{{ nodejs_app_rpm_packages }}"
   when: is_centos
 
 - name: Enable Yarn repository on CentOS/Fedora
@@ -93,7 +86,7 @@
 - name: Install Yarn package manager on CentOS/Fedora
   package:
     name: yarn
-    state: latest
+    state: present
   when: nodejs_yarn_enabled
 
 - name: Ensure rsync is installed for npm path workaround if a CentOS Vagrant environment is being used

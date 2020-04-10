@@ -35,4 +35,4 @@
   with_items: "{{ nodejs_app_commands }}"
   become: yes
   become_user: "{{ nodejs_app_dev_username if is_vagrant else nodejs_app_username }}"
-  when: nodejs_app_commands
+  when: nodejs_app_commands | length > 0

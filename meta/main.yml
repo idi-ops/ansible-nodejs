@@ -1,2 +1,17 @@
----
 galaxy_info:
+  author: Inclusive Design Research Centre
+  description: Installs NodeSource Node.js packages
+  company: OCAD University
+  issue_tracker_url: https://github.com/idi-ops/ansible-nodejs
+  license: BSD-3-Clause
+  min_ansible_version: 2.9
+  platforms:
+  - name: CentOS
+    versions:
+    - 7
+  - name: Fedora
+    versions:
+    - all
+  galaxy_tags: []
+
+dependencies: []

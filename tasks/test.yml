@@ -7,7 +7,7 @@
   when: is_docker
 
 - name: Start Supervisord and application in a Docker container
-  shell: supervisord -c /etc/supervisord.conf
+  shell: supervisord -c /etc/supervisord.conf # noqa 305
   when: is_docker
 
 - name: Wait for the application to finish initializing before proceeding
@@ -30,4 +30,4 @@
 - name: Fail if requested string is not found
   fail:
     msg: Application is not configured properly
-  when: "'{{ nodejs_app_test_string }}' not in webpage.content"
+  when: nodejs_app_test_string not in webpage.content
